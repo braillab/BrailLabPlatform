@@ -384,7 +384,7 @@ export default function App() {
       />
 
       {/* Recorrido guiado: se muestra solo si el usuario es nuevo o no lo ha terminado */}
-      <OnboardingTour />
+      <OnboardingTour onOpenPanel={() => setIsPanelOpen(true)} onClosePanel={() => setIsPanelOpen(false)} />
 
       {/* Asistente de voz "Braulio": wake word + comandos */}
       <VoiceAssistantIndicator

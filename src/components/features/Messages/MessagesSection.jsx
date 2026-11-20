@@ -8,6 +8,7 @@ import { textToBrailleCells } from '../../../utils/textHelpers';
 import { brailleService } from '../../../utils/brailleService';
 import { useAudio } from '../../../context/AudioContext';
 import { useAccessibility } from '../../../context/AccessibilityContext';
+import { isTourActive } from '../../../utils/tourState';
 
 const DISPLAY_CELLS = 12;
 const STORAGE_KEY = 'braillearn_messages';
@@ -99,6 +100,7 @@ const MessagesSection = () => {
     // Al entrar, Braulio dice dónde estás (corto si se eligió "Narración breve").
     useEffect(() => {
         const timer = setTimeout(() => {
+            if (isTourActive()) return; // el recorrido guiado ya está hablando
             speak(
                 briefNarration
                     ? 'Estás en Mensajes.'
@@ -187,7 +189,7 @@ const MessagesSection = () => {
                 </header>
 
                 {/* ── El "teléfono": conversación con el display ───────── */}
-                <div className="mx-auto w-full max-w-[28rem] md:rounded-[2.9rem] md:border-[10px] md:border-ink md:bg-ink md:shadow-[0_32px_70px_-24px_rgba(13,27,54,0.5)]">
+                <div data-tour="messages-phone" className="mx-auto w-full max-w-[28rem] md:rounded-[2.9rem] md:border-[10px] md:border-ink md:bg-ink md:shadow-[0_32px_70px_-24px_rgba(13,27,54,0.5)]">
                     <div className="relative flex h-[min(44rem,calc(100dvh-11rem))] min-h-[32rem] flex-col overflow-hidden rounded-[2rem] border border-line bg-surface-2 md:border-0">
                         {/* Isla del teléfono (solo decorativa) */}
                         <span

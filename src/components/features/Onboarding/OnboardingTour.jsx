@@ -1,14 +1,34 @@
-import React, { useState } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 import { useUser } from '../../../context/UserContext';
 import useOnboardingTour from '../../../hooks/useOnboardingTour';
 import Braulio from '../../common/Braulio';
 
 const CARD_WIDTH = 320;
+const MARGIN = 16;
 
-const OnboardingTour = () => {
+// Coloca la tarjeta donde quepa entera: debajo del elemento resaltado, o encima,
+// o a un lado; y si no hay sitio, al fondo de la pantalla.
+const placeCard = (rect, width, height) => {
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const clampX = (x) => Math.min(Math.max(x, MARGIN), vw - width - MARGIN);
+    const clampY = (y) => Math.min(Math.max(y, MARGIN), vh - height - MARGIN);
+    if (rect.bottom + MARGIN + height <= vh - MARGIN) return { top: rect.bottom + MARGIN, left: clampX(rect.left) };
+    if (rect.top - MARGIN - height >= MARGIN) return { top: rect.top - MARGIN - height, left: clampX(rect.left) };
+    if (rect.right + MARGIN + width <= vw - MARGIN) return { top: clampY(rect.top), left: rect.right + MARGIN };
+    if (rect.left - MARGIN - width >= MARGIN) return { top: clampY(rect.top), left: rect.left - MARGIN - width };
+    return { top: vh - height - MARGIN, left: clampX(rect.left) };
+};
+
+const OnboardingTour = ({ onOpenPanel, onClosePanel }) => {
     const { user, setUserName } = useUser();
     const [nameInput, setNameInput] = useState('');
-    const { isActive, step, stepIndex, totalSteps, isLastStep, targetRect, next, prev, skip } = useOnboardingTour();
+    const { isActive, step, stepIndex, totalSteps, isLastStep, targetRect, next, prev, skip } = useOnboardingTour({ onOpenPanel, onClosePanel });
+    const cardRef = useRef(null);
+    const [cardHeight, setCardHeight] = useState(300);
+    useLayoutEffect(() => {
+        if (cardRef.current) setCardHeight(cardRef.current.offsetHeight);
+    }, [isActive, stepIndex, targetRect]);
 
     // Paso 0: todavía no hay cuenta local en este dispositivo — la creamos primero
     if (!user) {
@@ -57,12 +77,10 @@ const OnboardingTour = () => {
     const isCentered = !step.selector || !targetRect;
 
     // Posiciona la tarjeta cerca del elemento resaltado, sin salirse de la pantalla
+    const cardWidth = Math.min(CARD_WIDTH, window.innerWidth - 2 * MARGIN);
     const cardStyle = isCentered
         ? { top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }
-        : {
-            top: Math.min(targetRect.bottom + 16, window.innerHeight - 260),
-            left: Math.min(Math.max(targetRect.left, 16), window.innerWidth - CARD_WIDTH - 16),
-        };
+        : placeCard(targetRect, cardWidth, cardHeight);
 
     return (
         <div className="fixed inset-0 z-[100]" role="dialog" aria-modal="true" aria-label="Recorrido guiado de la plataforma">
@@ -81,8 +99,9 @@ const OnboardingTour = () => {
             )}
 
             <div
+                ref={cardRef}
                 className="card absolute p-5 shadow-2xl onboarding-pop-in"
-                style={{ width: CARD_WIDTH, ...cardStyle }}
+                style={{ width: cardWidth, ...cardStyle }}
                 aria-live="polite"
             >
                 <div className="mb-3 flex items-center gap-3">

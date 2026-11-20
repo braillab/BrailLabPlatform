@@ -9,6 +9,7 @@ import { SHELVES, STORIES, getStory } from '../../../data/storyData';
 import { loadStoryProgress } from '../../../utils/storyStorage';
 import { useAudio } from '../../../context/AudioContext';
 import { useAccessibility } from '../../../context/AccessibilityContext';
+import { isTourActive } from '../../../utils/tourState';
 
 // Cada cuento tiene su propia dirección (#/cuentos/tres-cerditos), así que el
 // botón "atrás" del navegador vuelve a la biblioteca.
@@ -39,6 +40,7 @@ const StoriesSection = ({ onOpenPanel }) => {
     useEffect(() => {
         if (story || announced.current) return;
         announced.current = true;
+        if (isTourActive()) return; // el recorrido guiado ya está hablando
         speak?.(briefNarration ? INTRO_BRIEF : INTRO, true);
     }, [story, speak, briefNarration]);
 
@@ -96,7 +98,7 @@ const StoriesSection = ({ onOpenPanel }) => {
                                 const started = !done && saved?.scene > 0;
                                 const pct = started ? Math.round((saved.scene / s.scenes.length) * 100) : 0;
                                 return (
-                                    <li key={s.id}>
+                                    <li key={s.id} data-tour={shelf.id === 'peques' && s.id === stories[0].id ? 'stories-cards' : undefined}>
                                         <a
                                             href={`#/cuentos/${s.id}`}
                                             onClick={(e) => {

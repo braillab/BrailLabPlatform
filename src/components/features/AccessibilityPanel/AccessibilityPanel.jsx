@@ -191,7 +191,7 @@ const AccessibilityPanel = ({ isOpen, onClose }) => {
                     <hr className="border-t-2 border-line" />
 
                     {/* ── Voz ── */}
-                    <section aria-labelledby="a11y-voice-heading">
+                    <section aria-labelledby="a11y-voice-heading" data-tour="a11y-voice">
                         <SectionHeading id="a11y-voice-heading" icon={<Volume2 className="h-4 w-4" aria-hidden="true" />}>Lector de pantalla</SectionHeading>
                         <div className="space-y-4">
                             <ToggleRow

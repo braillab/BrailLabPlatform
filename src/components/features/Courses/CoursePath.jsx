@@ -6,6 +6,7 @@ import { getChapterRanges } from '../../../data/courseData';
 import { useAudio } from '../../../context/AudioContext';
 import { useAccessibility } from '../../../context/AccessibilityContext';
 import { useProgress } from '../../../hooks/useProgress';
+import { isTourActive } from '../../../utils/tourState';
 
 // Sombras tipo "repisa" de cada estado de nodo (mismo lenguaje que los botones).
 const NODE_STYLE = {
@@ -60,7 +61,7 @@ const CoursePath = ({ modules, onStart }) => {
     useEffect(() => {
         if (!recommended) return undefined;
         const onKeyDown = (e) => {
-            if (e.key !== 'ArrowRight') return;
+            if (e.key !== 'ArrowRight' || isTourActive()) return;
             const tag = document.activeElement?.tagName;
             if (['INPUT', 'TEXTAREA', 'SELECT'].includes(tag)) return;
             e.preventDefault();
@@ -78,6 +79,7 @@ const CoursePath = ({ modules, onStart }) => {
     // decir dónde vas, igual que ya dice el texto en pantalla (`guide`).
     useEffect(() => {
         const timer = setTimeout(() => {
+            if (isTourActive()) return; // el recorrido guiado ya está hablando
             const text = briefNarration
                 ? 'Estás en Cursos.'
                 : !started
@@ -203,6 +205,7 @@ const CoursePath = ({ modules, onStart }) => {
                                             type="button"
                                             onClick={() => onStart(m, resumeIndex(m))}
                                             aria-label={`${ctaLabel}. Atajo: flecha derecha.`}
+                                            data-tour="course-cta"
                                             className="btn btn-primary btn-lg"
                                         >
                                             {ctaLabel}
