@@ -17,8 +17,8 @@ if (isolated) {
     localStorage.setItem('braillearn_user', JSON.stringify({ id: 'demo', name: 'Braulio' }));
 }
 
-// Sin OnboardingTour, panel de accesibilidad ni asistente de voz: la vista previa
-// solo muestra la página principal.
+// Sin OnboardingTour ni panel de accesibilidad, y con Braulio solo como cara (no
+// escucha): la vista previa muestra la página principal como se ve ahora.
 const preview = <PlatformPreview />;
 
 ReactDOM.createRoot(document.getElementById('root')).render(

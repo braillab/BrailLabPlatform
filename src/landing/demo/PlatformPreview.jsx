@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import Header from '../../components/layout/Header';
 import Home from '../../components/features/Home/Home';
+import VoiceAssistantIndicator from '../../components/features/VoiceAssistant/VoiceAssistantIndicator';
 import { site } from '../content';
 
 // Todo lo que sea clicable (enlaces, botones, interruptores) queda bloqueado y
@@ -38,6 +39,10 @@ export default function PlatformPreview() {
             <main id="main">
                 <Home handleNav={noop} onOpenModule={noop} />
             </main>
+
+            {/* Braulio flotante, como en la plataforma real. Sin escuchar nada: es solo
+                la cara del asistente, y al tocarlo el bloqueo de clics muestra el aviso. */}
+            <VoiceAssistantIndicator status="idle" lastCommand="" mode="native" triggerManually={noop} />
 
             <div
                 role="status"
