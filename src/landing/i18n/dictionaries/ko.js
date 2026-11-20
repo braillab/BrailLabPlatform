@@ -321,7 +321,7 @@ export default {
             title: '현실의 문제에서 금메달까지.',
             lead: 'Braillearn은 점자를 배우는 일이 돈이나 손가락의 민감도에 좌우되지 않도록 시작되었습니다. 여기까지 온 과정을 소개합니다.',
             videoAria: '영상: Braillearn, Infomatrix México 2026 금메달',
-            caption: 'Infomatrix México 2026 금메달, 태국 국제 결선 진출.',
+            caption: 'Infomatrix México 2026 금메달, 튀니지 국제 결선 진출.',
             fallback: '이 브라우저에서는 영상을 재생할 수 없습니다.',
         },
         labels: ['문제', '장벽', '우리의 해답', '만들기', '검증하기', '인정받다', '앞으로'],
@@ -355,7 +355,7 @@ export default {
             items: [
                 { when: '2025', title: 'Infomatrix 지역 대회', medal: '은메달' },
                 { when: '2026', title: 'Infomatrix México(전국)', medal: '금메달' },
-                { when: '다음', title: '국제 결선', medal: '태국' },
+                { when: '다음', title: '국제 결선', medal: '튀니지' },
             ],
         },
         next: {

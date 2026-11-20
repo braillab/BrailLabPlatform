@@ -305,7 +305,7 @@ export default {
             title: 'From a real problem to a gold medal.',
             lead: 'Braillearn was born so that learning Braille would not depend on money or on how sensitive your fingers are. This is how we got here.',
             videoAria: 'Video: Braillearn, gold medal at Infomatrix México 2026',
-            caption: 'Gold medal at Infomatrix México 2026, advancing to the international final in Thailand.',
+            caption: 'Gold medal at Infomatrix México 2026, advancing to the international final in Tunisia.',
             fallback: 'Your browser cannot play this video.',
         },
         labels: ['The problem', 'The barrier', 'Our answer', 'Building it', 'Testing it', 'Recognition', 'What comes next'],
@@ -339,7 +339,7 @@ export default {
             items: [
                 { when: '2025', title: 'Infomatrix regional', medal: 'Silver medal' },
                 { when: '2026', title: 'Infomatrix México (national)', medal: 'Gold medal' },
-                { when: 'Next', title: 'International final', medal: 'Thailand' },
+                { when: 'Next', title: 'International final', medal: 'Tunisia' },
             ],
         },
         next: {

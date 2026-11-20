@@ -305,7 +305,7 @@ export default {
             title: 'D’un vrai problème à une médaille d’or.',
             lead: 'Braillearn est né pour que l’apprentissage du braille ne dépende ni de l’argent ni de la sensibilité de vos doigts. Voici comment nous en sommes arrivés là.',
             videoAria: 'Vidéo : Braillearn, médaille d’or à Infomatrix México 2026',
-            caption: 'Médaille d’or à Infomatrix México 2026, qualifiés pour la finale internationale en Thaïlande.',
+            caption: 'Médaille d’or à Infomatrix México 2026, qualifiés pour la finale internationale en Tunisie.',
             fallback: 'Votre navigateur ne peut pas lire cette vidéo.',
         },
         labels: ['Le problème', 'La barrière', 'Notre réponse', 'La construction', 'Les essais', 'La reconnaissance', 'La suite'],
@@ -339,7 +339,7 @@ export default {
             items: [
                 { when: '2025', title: 'Infomatrix régional', medal: 'Médaille d’argent' },
                 { when: '2026', title: 'Infomatrix México (national)', medal: 'Médaille d’or' },
-                { when: 'Prochaine étape', title: 'Finale internationale', medal: 'Thaïlande' },
+                { when: 'Prochaine étape', title: 'Finale internationale', medal: 'Tunisie' },
             ],
         },
         next: {
